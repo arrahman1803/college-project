@@ -1,0 +1,12 @@
+<img 
+  src="./brennan-burling--fhcpPYjf3g-unsplash.jpg" 
+  srcset="
+  brennan-burling--fhcpPYjf3g-unsplash.jpg 400w,
+  brennan-burling--fhcpPYjf3g-unsplash.jpg 800w,
+  brennan-burling--fhcpPYjf3g-unsplash.jpg 1200w" 
+  sizes="(max-width: 600px) 100vw, 
+         (max-width: 992px) 100vw,  
+         (min-width: 993px) 100vw"  
+  alt="Product image"
+  style="width: 100%; object-fit: cover;" 
+/>

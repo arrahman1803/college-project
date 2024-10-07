@@ -1,17 +1,24 @@
-{% extends "../base.html" %}
-{% block title %}Home{% endblock  %}
-{% block body %}
-<div class="container mx-auto mt-10">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carousel Slider with Auto-Slide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <div class="container mx-auto mt-10">
     <div class="relative w-full overflow-hidden rounded-lg">
       <!-- Slides -->
       <div class="carousel-slides flex transition-transform duration-500">
-        <div class="min-w-full bg-blue-500 text-white flex justify-center items-center h-64 md:h-96">
+        <div class="min-w-full bg-blue-500 text-white flex justify-center items-center h-64">
           <h2 class="text-3xl">Slide 1</h2>
         </div>
-        <div class="min-w-full bg-green-500 text-white flex justify-center items-center h-64 md:h-96">
+        <div class="min-w-full bg-green-500 text-white flex justify-center items-center h-64">
           <h2 class="text-3xl">Slide 2</h2>
         </div>
-        <div class="min-w-full bg-red-500 text-white flex justify-center items-center h-64 md:h-96">
+        <div class="min-w-full bg-red-500 text-white flex justify-center items-center h-64">
           <h2 class="text-3xl">Slide 3</h2>
         </div>
       </div>
@@ -26,34 +33,7 @@
     </div>
   </div>
 
-<section class="text-gray-900 body-font">
-    <div class="container px-5 py-12 pb-4s mx-auto">
-        <h1 class="sm:text-3xl text-3xl font-medium title-font  text-gray-900 mb-20">New Arrivals
-        </h1>
-        <div class="flex flex-wrap -m-4">
-            {% for p in product %}
-            <div class="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-lg">
-                <a href="product/{{p.pid}}" class="block relative rounded overflow-hidden">
-                    <img alt="ecommerce" class="h-full md:h-[48vh]  w-full block"
-                         src="{{p.image.url}}">
-                </a>
-                <div class="mt-4 text-center md:text-left">
-                    <h3 class="text-gray-900 text-xs tracking-widest title-font mb-1">{{p.category}}</h3>
-                    <h2 class="text-gray-900 title-font text-lg font-medium">{{p.title}}</h2>
-                    <p class="mt-1">₹ {{p.price}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-         <a href="/products" class="text-blue-500 inline-flex mt-20 items-center">See More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-    </div>
-</section>
-<script>
+  <script>
     const slides = document.querySelector('.carousel-slides');
     const totalSlides = slides.children.length;
     let currentSlide = 0;
@@ -88,4 +68,6 @@
       slideInterval = setInterval(autoSlide, 3000); // Restart the interval
     });
   </script>
-{% endblock  %}
+
+</body>
+</html>
