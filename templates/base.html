@@ -19,6 +19,66 @@
           font-weight: 900;
           font-style: normal;
         }
+        .product-wrapper {
+      overflow: hidden;
+      border-radius: 5px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .product-slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .product-card {
+      flex: 0 0 calc(25% - 20px); /* Adjust product width to account for margin */
+      border-radius: 5px;
+      background-color: white;
+      padding: 20px;
+      margin: 0 10px; /* Gap between products */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card img {
+      border-radius: 5px;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+      .product-card {
+        flex: 0 0 calc(100% - 20px); /* Adjust for mobile: 1 product fully visible with margin */
+        margin: 0 10px;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .product-card {
+        flex: 0 0 calc(33.33% - 20px); /* Adjust for tablet: 3 products visible with margin */
+        margin: 0 10px;
+      }
+    }
+
+    /* Button Styles */
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      color: white;
+    }
+
+    .prev-button {
+      left: 10px;
+    }
+
+    .next-button {
+      right: 10px;
+    }
     </style>
 </head>
 
@@ -31,25 +91,15 @@
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Mp Shoes</span>
         </a>
         <div class="flex md:order-2">
-
-            <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search"
-                    aria-expanded="false"
-                    class="md:hidden text-gray-900 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                </svg>
-                <span class="sr-only">Search</span>
-            </button>
-
-<a href="/cart">
-<button type="button" class="relative inline-flex font-medium">
-<span class="material-symbols-outlined pr-4 align-center"  style="font-size:36px;">local_mall</span>
-<span class="sr-only">Cart</span>
-  <div class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 p-2.5 border-white rounded-full top-0 right-1 dark:border-gray-900 cart-items-count">{{ request.session.cart_data_obj | length}}</div>
-</button>
-</a>
+            <a href="/cart">
+                <button type="button" class="relative inline-flex font-medium">
+                    <span class="material-symbols-outlined pr-4 align-center" style="font-size:36px;">local_mall</span>
+                    <span class="sr-only">Cart</span>
+                    <div class="absolute inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-500 border-2 p-2.5 border-white rounded-full top-0 right-1 dark:border-gray-900 cart-items-count">
+                        {{ request.session.cart_data_obj | length}}
+                    </div>
+                </button>
+            </a>
             <div class="relative hidden md:block">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
 
@@ -68,50 +118,50 @@
                 </form>
             </div>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <button class="flex text-sm rounded-full md:me-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
-<span class="material-symbols-outlined md:px-4" style="font-size: 36px;">
+                <button class="flex text-sm rounded-full md:me-0" id="user-menu-button" aria-expanded="false"
+                        data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <span class="sr-only">Open user menu</span>
+                    <span class="material-symbols-outlined md:px-4" style="font-size: 36px;">
 account_circle
 </span>
-      </button>
-      <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-        <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900 dark:text-white">{{user.username}}</span>
-          <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{user.email}}</span>
-        </div>
-        <ul class="py-2" aria-labelledby="user-menu-button">
-                  {% if user.is_authenticated %}
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Account</a>
-          </li>
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Orders</a>
-          </li>
-             <li>
-            <a href="/logout" class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-200 dark:hover:text-white">Log Out</a>
-          </li>
-            {% else %}
-          <li>
-            <a href="/login" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</a>
-          </li>
-          <li>
-            <a href="/signup" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Register</a>
-          </li>
-            {% endif %}
-        </ul>
-      </div>
-            <button data-collapse-toggle="navbar-search" type="button"
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-900 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-search" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M1 1h15M1 7h15M1 13h15"/>
-                </svg>
-            </button>
+                </button>
+                <!-- Dropdown menu -->
+                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                     id="user-dropdown">
+                    <div class="px-4 py-3">
+                        <span class="block text-sm text-gray-900 dark:text-white">{{user.username}}</span>
+                        <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{user.email}}</span>
+                    </div>
+                    <ul class="py-2" aria-labelledby="user-menu-button">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="/logout"
+                               class="block px-4 py-2 text-sm text-red-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-red-200 dark:hover:text-white">Log
+                                Out</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="/login"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Login</a>
+                        </li>
+                        <li>
+                            <a href="/signup"
+                               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Register</a>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </div>
+                <button data-collapse-toggle="navbar-search" type="button"
+                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-900 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                        aria-controls="navbar-search" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                         viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button>
+            </div>
         </div>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-search">
             <div class="relative mt-3 md:hidden">

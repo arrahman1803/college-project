@@ -111,28 +111,32 @@ def delete_from_cart(request):
     return JsonResponse({"data" : context,"totalcartitems" : len(request.session['cart_data_obj']) })
 
 def checkout(request):
-    global order
     cart_total_amount = 0
     total_amount = 0
 
     if 'cart_data_obj' in request.session:
-        for p_id, item in request.session['cart_data_obj'].items():
-            total_amount += int(item['qty']) * float(item['price'])
+        # for p_id, item in request.session['cart_data_obj'].items():
+        #     total_amount += int(item['qty']) * float(item['price'])
 
-            order = CartOrder.objects.create(
-                user = request.user,
-                price = total_amount
-            )
+            # order = CartOrder.objects.create(
+            #     user = request.user,
+            #     price = total_amount
+            # )
 
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_amount += int(item['qty']) * float(item['price'])
 
-            cart_order_products = CartOrderItems.objects.create(
-                order = order,
-                item = item['title'],
-                image = item['image'],
-                qty = item['qty'],
-                price = item['price'],
-                total = float(item['qty']) * float(item['price']),
-            )
-    return render(request, "checkout/checkout.html",{"cart_data" : request.session['cart_data_obj'], "totalcartitems" : len(request.session['cart_data_obj']), 'cart_total_amount' : cart_total_amount})
+        #     cart_order_products = CartOrderItems.objects.create(
+        #         order = order,
+        #         item = item['title'],
+        #         image = item['image'],
+        #         qty = item['qty'],
+        #         price = item['price'],
+        #         total = float(item['qty']) * float(item['price']),
+        #     )
+        # {"cart_data": request.session['cart_data_obj'], "totalcartitems": len(request.session['cart_data_obj']),
+         # 'cart_total_amount': cart_total_amount}
+    return render(request, "checkout/checkout.html")
+
+def order(request):
+    return render(request, "shop/order.html")

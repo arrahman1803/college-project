@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Cart{% endblock %}
 {% block body %}
-     <div class="container mx-auto mt-10" id="cart-list">
-        <h1 class="text-3xl font-bold mb-4">Shopping Cart</h1>
-        <h1 class="text-3xl font-bold mb-6">{{totalcartitems}} Items in Your Cart</h1>
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <table class="w-full">
+<h1 class="text-3xl font-bold text-center my-4">Shopping Cart</h1>
+{% if cart_data.items %}
+        <h1 class="text-3xl font-bold mb-6 text-center">{{totalcartitems}} Items in Your Cart</h1>
+<div class="container mx-auto mt-2" id="cart-list">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <div class="overflow-x-auto">
+            <table class="w-full min-w-[600px]">
                 <thead>
                     <tr class="border-b">
                         <th class="text-left py-3 px-4">Product</th>
@@ -17,33 +19,33 @@
                 </thead>
                 <tbody>
                 {% for product_id , item in cart_data.items %}
-                    <!-- Example Cart Item -->
                     <tr class="border-b hover:bg-gray-100">
                         <td class="py-4 px-4 flex items-center">
-                            <img src="{{item.image}}"  alt="Product Image" class="mr-4 h-20">
+                            <img src="{{item.image}}" alt="Product Image" class="mr-4 h-20 w-auto">
                             <span>{{item.title}}</span>
                         </td>
                         <td class="py-4 px-4">{{item.size}}</td>
-                        <td class="py-4 px-4">
-                         {{item.color}}
-                        </td>
+                        <td class="py-4 px-4">{{item.color}}</td>
                         <td class="py-4 px-4">₹{{item.price}}</td>
                         <td class="py-4 px-4">
                             <button class="text-red-600 hover:text-red-800 delete-product" data-product="{{product_id}}">
-                                <span class="material-symbols-outlined">
-delete
-</span>
+                                <span class="material-symbols-outlined">delete</span>
                             </button>
                         </td>
                     </tr>
-    {% endfor %}
-                    <!-- Repeat for more items -->
+                {% endfor %}
                 </tbody>
             </table>
-            <div class="mt-6 flex justify-between items-center">
-                <span class="font-bold">Total: ₹ {{cart_total_amount}}</span>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded">Checkout</button>
-            </div>
+        </div>
+        <div class="mt-6 flex flex-col sm:flex-row justify-between items-center">
+            <span class="font-bold">Total: ₹ {{cart_total_amount}}</span>
+            <a href="/checkout">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded mt-4 sm:mt-0">Checkout</button>
+            </a>
         </div>
     </div>
+</div>
+{% else %}
+<h1 class="text-3xl font-bold text-center my-4">Your Cart is Empty</h1>
+{% endif %}
 {% endblock %}

@@ -1,91 +1,88 @@
 {% extends "../base.html" %}
 {% block title %}Home{% endblock  %}
 {% block body %}
+{% load static %}
 <div class="container mx-auto mt-10">
     <div class="relative w-full overflow-hidden rounded-lg">
       <!-- Slides -->
+
       <div class="carousel-slides flex transition-transform duration-500">
-        <div class="min-w-full bg-blue-500 text-white flex justify-center items-center h-64 md:h-96">
-          <h2 class="text-3xl">Slide 1</h2>
+        <div class="min-w-full text-white flex justify-center items-center h-64 md:h-96">
+<img
+  src="{% static 'slider-images/brennan-burling--fhcpPYjf3g-unsplash.jpg' %}"
+  srcset="
+  {% static 'slider-images/brennan-burling--fhcpPYjf3g-unsplash.jpg' %} 400w,
+  {% static 'slider-images/brennan-burling--fhcpPYjf3g-unsplash.jpg' %} 800w,
+ {% static 'slider-images/brennan-burling--fhcpPYjf3g-unsplash.jpg' %} 1200w"
+  sizes="(max-width: 600px) 100vw,
+         (max-width: 992px) 100vw,
+         (min-width: 993px) 100vw"
+  alt="Product image"
+  style="width: 100%; object-fit: cover;"
+/>
         </div>
-        <div class="min-w-full bg-green-500 text-white flex justify-center items-center h-64 md:h-96">
-          <h2 class="text-3xl">Slide 2</h2>
+        <div class="min-w-full text-white flex justify-center items-center h-64 md:h-96">
+<img
+  src="{% static 'slider-images/imani-bahati-LxVxPA1LOVM-unsplash.jpg' %}"
+  srcset="
+  {% static 'slider-images/imani-bahati-LxVxPA1LOVM-unsplash.jpg' %} 400w,
+  {% static 'slider-images/imani-bahati-LxVxPA1LOVM-unsplash.jpg' %} 800w,
+  {% static 'slider-images/imani-bahati-LxVxPA1LOVM-unsplash.jpg' %}
+         (max-width: 992px) 100vw,
+         (min-width: 993px) 100vw"
+  alt="Product image"
+  style="width: 100%; object-fit: cover;"
+/>
         </div>
-        <div class="min-w-full bg-red-500 text-white flex justify-center items-center h-64 md:h-96">
-          <h2 class="text-3xl">Slide 3</h2>
+        <div class="min-w-full text-white flex justify-center items-center h-64 md:h-96">
+<img
+  src="{% static 'slider-images/daniel-storek-JM-qKEd1GMI-unsplash.jpg' %}"
+  srcset="
+  {% static 'slider-images/daniel-storek-JM-qKEd1GMI-unsplash.jpg' %} 400w,
+  {% static 'slider-images/daniel-storek-JM-qKEd1GMI-unsplash.jpg' %} 800w,
+  {% static 'slider-images/daniel-storek-JM-qKEd1GMI-unsplash.jpg' %} 1200w"
+  sizes="(max-width: 600px) 100vw,
+         (max-width: 992px) 100vw,
+         (min-width: 993px) 100vw"
+  alt="Product image"
+  style="width: 100%; object-fit: cover;"
+/>
         </div>
       </div>
 
       <!-- Controls -->
-      <button id="prev" class="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2">
+      <button id="preview" class="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2">
         &#10094;
       </button>
-      <button id="next" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2">
+      <button id="next-slide" class="absolute top-1/2 right-4 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2">
         &#10095;
       </button>
     </div>
   </div>
 
-<section class="text-gray-900 body-font">
-    <div class="container px-5 py-12 pb-4s mx-auto">
-        <h1 class="sm:text-3xl text-3xl font-medium title-font  text-gray-900 mb-20">New Arrivals
-        </h1>
-        <div class="flex flex-wrap -m-4">
-            {% for p in product %}
-            <div class="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-lg">
-                <a href="product/{{p.pid}}" class="block relative rounded overflow-hidden">
-                    <img alt="ecommerce" class="h-full md:h-[48vh]  w-full block"
-                         src="{{p.image.url}}">
-                </a>
-                <div class="mt-4 text-center md:text-left">
-                    <h3 class="text-gray-900 text-xs tracking-widest title-font mb-1">{{p.category}}</h3>
-                    <h2 class="text-gray-900 title-font text-lg font-medium">{{p.title}}</h2>
-                    <p class="mt-1">₹ {{p.price}}</p>
-                </div>
-            </div>
-            {% endfor %}
+  <div class="container mx-auto mt-10">
+    <div class="product-wrapper w-full relative">
+      <!-- Product Slides -->
+      <div class="product-slides">
+        <!-- Product 1 -->
+          {% for i in product %}
+          <a href="product/{{i.pid}}">
+        <div class="product-card">
+          <img src="{{i.image.url}}" alt="Product 1" class="w-full h-80 object-cover">
+          <h2 class="text-xl mt-4">{{i.title}}</h2>
+          <p class="text-gray-500">Price: {{i.price}}</p>
         </div>
-         <a href="/products" class="text-blue-500 inline-flex mt-20 items-center">See More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
           </a>
+          {% endfor %}
+
+      </div>
+
+      <!-- Previous and Next Buttons -->
+      <button id="prev" class="carousel-button prev-button">&#10094;</button>
+      <button id="next" class="carousel-button next-button">&#10095;</button>
     </div>
-</section>
-<script>
-    const slides = document.querySelector('.carousel-slides');
-    const totalSlides = slides.children.length;
-    let currentSlide = 0;
-
-    // Function to update the slide position
-    function updateSlide() {
-      const offset = -currentSlide * 100;
-      slides.style.transform = `translateX(${offset}%)`;
-    }
-
-    // Auto-slide every 3 seconds
-    function autoSlide() {
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateSlide();
-    }
-
-    // Set interval for automatic sliding
-    let slideInterval = setInterval(autoSlide, 3000);
-
-    // Next and previous button functionality
-    document.getElementById('next').addEventListener('click', () => {
-      clearInterval(slideInterval); // Reset the interval when clicked
-      currentSlide = (currentSlide + 1) % totalSlides;
-      updateSlide();
-      slideInterval = setInterval(autoSlide, 3000); // Restart the interval
-    });
-
-    document.getElementById('prev').addEventListener('click', () => {
-      clearInterval(slideInterval); // Reset the interval when clicked
-      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-      updateSlide();
-      slideInterval = setInterval(autoSlide, 3000); // Restart the interval
-    });
+  </div>
+<script src="{% static 'slider.js' %}">
   </script>
+<script src="{% static 'product-slider.js' %}"></script>
 {% endblock  %}
